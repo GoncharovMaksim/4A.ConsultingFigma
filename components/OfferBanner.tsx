@@ -30,8 +30,12 @@ export default function OfferBanner({
           </svg>
           <div className="flex items-center gap-1.5">
             <span
-              className={`text-star-yellow font-bold text-4xl transition-all duration-200 ${
-                timer <= 30 && timerBlink ? "opacity-50" : ""
+              className={` font-bold text-4xl transition-all duration-200 ${
+                timer <= 30
+                  ? timerBlink
+                    ? "text-star-red"
+                    : "text-white"
+                  : "text-star-yellow"
               }`}
             >
               {formatTime(timer)}
