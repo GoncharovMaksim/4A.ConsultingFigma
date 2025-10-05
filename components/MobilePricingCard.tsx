@@ -67,7 +67,7 @@ export default function MobilePricingCard({
           </div>
 
           {/* Right side - Description */}
-          <div className="flex-1 text-right">
+          <div className="flex-1 text-left">
             <p className="text-text-primary text-sm leading-relaxed">
               {plan.description}
             </p>
