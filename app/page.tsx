@@ -67,8 +67,15 @@ export default function Home() {
     <div className="min-h-screen bg-bg-primary">
       <OfferBanner />
 
+      {/* Page title over both columns */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-6">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-text-primary text-center">
+          Выбери подходящий для себя <span className="text-accent">тариф</span>
+        </h1>
+      </div>
+
       {/* Layout: image left on desktop, top on mobile */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-8 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-6 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
         {/* Image block */}
         <div className="order-1 lg:order-none">
           <div
@@ -88,13 +95,8 @@ export default function Home() {
 
         {/* Right column content */}
         <div>
-          {/* Title */}
-          <div className="mb-8 md:mb-12">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              Выбери подходящий для себя{" "}
-              <span className="text-accent"> тариф</span>
-            </h1>
-          </div>
+          {/* Title moved above grid */}
+          <div className="mb-4 md:mb-6" />
 
           {/* Pricing Cards - Desktop */}
           <div className="hidden md:block mb-10">
