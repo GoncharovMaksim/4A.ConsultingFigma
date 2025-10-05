@@ -52,15 +52,14 @@ export default function MobilePricingCard({
                 <h3 className="text-lg font-medium text-text-primary mb-1">
                   {plan.title}
                 </h3>
-                <div className="flex items-end gap-2">
+                <div className="flex flex-col items-end mb-2">
                   <div className="text-3xl font-semibold text-accent">
                     {plan.price}
                   </div>
-                  <div className="relative">
-                    <span className="text-text-old-price text-sm line-through">
+                  <div className="relative w-full flex justify-end">
+                    <span className="text-text-old-price text-sm line-through decoration-[1px] decoration-text-old-price">
                       {plan.oldPrice}
                     </span>
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-text-old-price transform -translate-y-1/2"></div>
                   </div>
                 </div>
               </div>
