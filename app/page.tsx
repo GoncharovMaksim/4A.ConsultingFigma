@@ -91,7 +91,8 @@ export default function Home() {
           {/* Title */}
           <div className="mb-8 md:mb-12">
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              Выбери подходящий для себя тариф
+              Выбери подходящий для себя{" "}
+              <span className="text-accent"> тариф</span>
             </h1>
           </div>
 
