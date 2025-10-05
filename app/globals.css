@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@700&display=swap");
+
+@layer base {
+  * {
+    @apply border-gray-500;
+  }
+  body {
+    @apply bg-bg-primary text-text-primary font-montserrat;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-bg-primary font-bold rounded-2xl px-16 py-5 text-xl;
+  }
+
+  .card {
+    @apply bg-bg-secondary border-2 border-gray-500 rounded-5xl p-8;
+  }
+
+  .card-selected {
+    @apply bg-bg-secondary border-2 border-accent rounded-5xl p-8;
+  }
+
+  .price-tag {
+    @apply bg-sale-red text-text-primary font-gilroy font-medium text-3xl px-2 py-1 rounded-md;
+  }
+
+  .offer-banner {
+    @apply bg-offer-green text-text-primary font-montserrat font-semibold text-2xl text-center py-2;
+  }
+}
