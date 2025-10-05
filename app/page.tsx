@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import PricingCard from "@/components/PricingCard";
 import MobilePricingCard from "@/components/MobilePricingCard";
@@ -8,63 +8,140 @@ import OfferBanner from "@/components/OfferBanner";
 import GuaranteeCard from "@/components/GuaranteeCard";
 import AttentionCard from "@/components/AttentionCard";
 
-export default function Home() {
-  const [selectedPlan, setSelectedPlan] = useState("forever");
-  const [isAgreed, setIsAgreed] = useState(false);
+// Тип для тарифа с сервера
+interface TariffApi {
+  id: string;
+  period: string;
+  price: number;
+  full_price: number;
+  is_best: boolean;
+  text: string;
+}
 
-  const pricingPlans = [
-    {
-      id: "forever",
-      title: "Навсегда",
-      price: "5990 ₽",
-      oldPrice: "18 990 ₽",
-      description:
-        "Для тех, кто хочет всегда быть в форме и поддерживать здоровье",
-      mobileDescription: "Всегда быть в форме",
-      discount: "-70%",
-      isPopular: true,
-      isSelected: selectedPlan === "forever",
-    },
-    {
-      id: "3months",
-      title: "3 месяца",
-      price: "1990 ₽",
-      oldPrice: "3990 ₽",
-      description: "Привести тело в порядок",
-      mobileDescription: "Привести тело в порядок",
-      discount: "-50%",
-      isPopular: false,
-      isSelected: selectedPlan === "3months",
-    },
-    {
-      id: "1month",
-      title: "1 месяц",
-      price: "990 ₽",
-      oldPrice: "1690 ₽",
-      description: "Чтобы получить первые результаты",
-      mobileDescription: "Получить первые результаты",
-      discount: "-40%",
-      isPopular: false,
-      isSelected: selectedPlan === "1month",
-    },
-    {
-      id: "1week",
-      title: "1 неделя",
-      price: "690 ₽",
-      oldPrice: "990 ₽",
-      description: "Чтобы просто начать",
-      mobileDescription: "Чтобы просто начать",
-      discount: "-30%",
-      isPopular: false,
-      isSelected: selectedPlan === "1week",
-    },
-  ];
+export default function Home() {
+  const [tariffs, setTariffs] = useState<TariffApi[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [blink, setBlink] = useState(true);
+  const [timer, setTimer] = useState(120); // 2 минуты в секундах
+  const [timerBlink, setTimerBlink] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(true);
+  const [showCheckboxError, setShowCheckboxError] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBlink((b) => !b);
+    }, 600); // скорость мигания
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    async function fetchTariffs() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch("https://t-core.fit-hub.pro/Test/GetTariffs");
+        if (!res.ok) throw new Error("Ошибка загрузки тарифов");
+        const data: TariffApi[] = await res.json();
+        setTariffs(data);
+        // По умолчанию выбираем тариф с is_best: true
+        const best = data.find((t) => t.is_best);
+        setSelectedPlan(best ? best.id : data[0]?.id || null);
+      } catch (e: any) {
+        setError(e?.message || "Ошибка");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchTariffs();
+  }, []);
+
+  // Таймер обратного отсчёта
+  useEffect(() => {
+    if (timer <= 0) return;
+    const interval = setInterval(() => {
+      setTimer((t) => t - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  // Мигание таймера при < 30 сек
+  useEffect(() => {
+    if (timer > 30) return;
+    const blinkInterval = setInterval(() => {
+      setTimerBlink((b) => !b);
+    }, 500);
+    return () => clearInterval(blinkInterval);
+  }, [timer]);
+
+  // Форматирование времени
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60)
+      .toString()
+      .padStart(2, "0");
+    const sec = (s % 60).toString().padStart(2, "0");
+    return `${m}:${sec}`;
+  };
+
+  // Преобразуем тарифы для карточек
+  const pricingPlans = tariffs.map((t) => ({
+    id: t.id,
+    title: t.period,
+    price: showDiscount ? t.price + " ₽" : t.full_price + " ₽",
+    oldPrice: showDiscount ? t.full_price + " ₽" : "",
+    description: t.text,
+    mobileDescription: t.text,
+    discount:
+      showDiscount && t.full_price > t.price
+        ? `-${Math.round(100 - (t.price / t.full_price) * 100)}%`
+        : "",
+    isPopular: t.is_best,
+    isSelected: selectedPlan === t.id,
+  }));
 
   const featuredPlan = pricingPlans.find((p) => p.isPopular);
   const otherPlans = pricingPlans.filter((p) => !p.isPopular);
 
+  useEffect(() => {
+    if (timer === 0) {
+      setShowDiscount(false);
+    }
+  }, [timer]);
+
+  const handleBuyClick = () => {
+    if (!isAgreed) {
+      setShowCheckboxError(true);
+      setTimeout(() => setShowCheckboxError(false), 1200);
+      return;
+    }
+    // Здесь может быть логика покупки
+  };
+
+  if (loading) {
+    return <div className="text-center py-20">Загрузка тарифов...</div>;
+  }
+  if (error) {
+    return <div className="text-center py-20 text-red-500">{error}</div>;
+  }
+
   return (
     <div className="min-h-screen bg-bg-primary">
+      {/* Sticky header timer */}
+      <div className="sticky top-0 z-50 w-full bg-bg-primary py-2 flex justify-center">
+        <div
+          className={`px-6 py-2 rounded-xl font-bold text-lg transition-all duration-200 ${
+            timer <= 30
+              ? timerBlink
+                ? "bg-red-600 text-white"
+                : "bg-red-400 text-white"
+              : "bg-accent text-bg-primary"
+          }`}
+        >
+          До конца скидки: {formatTime(timer)}
+        </div>
+      </div>
       <OfferBanner />
 
       {/* Page title over both columns */}
@@ -124,6 +201,7 @@ export default function Home() {
                   plan={featuredPlan}
                   isFeatured
                   onClick={() => setSelectedPlan(featuredPlan.id)}
+                  showDiscount={showDiscount}
                 />
               </div>
             )}
@@ -135,6 +213,7 @@ export default function Home() {
                   key={plan.id}
                   plan={plan}
                   onClick={() => setSelectedPlan(plan.id)}
+                  showDiscount={showDiscount}
                 />
               ))}
             </div>
@@ -151,6 +230,7 @@ export default function Home() {
                     description: plan.mobileDescription,
                   }}
                   onClick={() => setSelectedPlan(plan.id)}
+                  showDiscount={showDiscount}
                 />
               ))}
             </div>
@@ -168,9 +248,11 @@ export default function Home() {
             <div className="flex items-start gap-3 mb-6 lg:mb-8">
               <button
                 onClick={() => setIsAgreed(!isAgreed)}
-                className={`w-7 h-7 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                className={`w-7 h-7 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors duration-200 ${
                   isAgreed
                     ? "bg-accent border-accent"
+                    : showCheckboxError
+                    ? "bg-bg-tertiary border-red-500 animate-pulse"
                     : "bg-bg-tertiary border-gray-500"
                 }`}
               >
@@ -195,7 +277,10 @@ export default function Home() {
             </div>
 
             <button
-              className="btn-primary w-full lg:w-[352px] mb-6 text-lg py-4"
+              onClick={handleBuyClick}
+              className={`btn-primary w-full lg:w-[352px] mb-6 text-lg py-4 transition-all duration-200 ${
+                blink ? "brightness-125" : "brightness-75"
+              }`}
               disabled={!isAgreed}
             >
               Купить

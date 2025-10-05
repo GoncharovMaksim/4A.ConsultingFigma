@@ -14,11 +14,13 @@ interface PricingPlan {
 interface MobilePricingCardProps {
   plan: PricingPlan;
   onClick: () => void;
+  showDiscount?: boolean;
 }
 
 export default function MobilePricingCard({
   plan,
   onClick,
+  showDiscount = true,
 }: MobilePricingCardProps) {
   return (
     <div className="relative">
@@ -39,7 +41,13 @@ export default function MobilePricingCard({
         )}
 
         {/* Discount Badge (inside card) */}
-        <div className="absolute top-0 right-12 z-10">
+        <div
+          className={`absolute top-0 right-12 z-10 transition-opacity duration-700 ${
+            showDiscount && plan.discount
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
           <div className="bg-sale-red text-text-primary font-gilroy font-medium text-sm px-2 py-1 rounded-br-sm">
             {plan.discount}
           </div>
@@ -57,7 +65,13 @@ export default function MobilePricingCard({
                     {plan.price}
                   </div>
                   <div className="relative w-full flex justify-end">
-                    <span className="text-text-old-price text-sm line-through decoration-[1px] decoration-text-old-price">
+                    <span
+                      className={`text-text-old-price text-sm line-through decoration-[1px] decoration-text-old-price transition-opacity duration-700 ${
+                        showDiscount && plan.oldPrice
+                          ? "opacity-100"
+                          : "opacity-0 pointer-events-none"
+                      }`}
+                    >
                       {plan.oldPrice}
                     </span>
                   </div>

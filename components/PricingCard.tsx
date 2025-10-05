@@ -15,12 +15,14 @@ interface PricingCardProps {
   plan: PricingPlan;
   onClick: () => void;
   isFeatured?: boolean;
+  showDiscount?: boolean;
 }
 
 export default function PricingCard({
   plan,
   onClick,
   isFeatured = false,
+  showDiscount = true,
 }: PricingCardProps) {
   return (
     <div className="relative h-full">
@@ -41,7 +43,13 @@ export default function PricingCard({
         )}
 
         {/* Discount Badge (inside card to scale together) */}
-        <div className="absolute top-0 left-8 md:left-12 lg:left-16 z-10">
+        <div
+          className={`absolute top-0 left-8 md:left-12 lg:left-16 z-10 transition-opacity duration-700 ${
+            showDiscount && plan.discount
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
           <div className="bg-sale-red text-text-primary font-gilroy font-medium text-lg px-2 py-1 rounded-br-md">
             {plan.discount}
           </div>
@@ -57,7 +65,13 @@ export default function PricingCard({
                 <div className="text-5xl font-semibold text-accent whitespace-nowrap leading-none">
                   {plan.price}
                 </div>
-                <span className="text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price">
+                <span
+                  className={`text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price transition-opacity duration-700 ${
+                    showDiscount && plan.oldPrice
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                  }`}
+                >
                   {plan.oldPrice}
                 </span>
               </div>
@@ -82,7 +96,13 @@ export default function PricingCard({
                   {plan.price}
                 </div>
                 <div className="relative">
-                  <span className="text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price">
+                  <span
+                    className={`text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price transition-opacity duration-700 ${
+                      showDiscount && plan.oldPrice
+                        ? "opacity-100"
+                        : "opacity-0 pointer-events-none"
+                    }`}
+                  >
                     {plan.oldPrice}
                   </span>
                 </div>
