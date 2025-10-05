@@ -68,7 +68,7 @@ export default function Home() {
       <OfferBanner />
 
       {/* Layout: image left on desktop, top on mobile */}
-      <div className="max-w-7xl mx-auto px-4 pt-8 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-8 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
         {/* Image block */}
         <div className="order-1 lg:order-none">
           <div
@@ -195,7 +195,7 @@ export default function Home() {
       </div>
 
       {/* Full-width Guarantee under image/text grid */}
-      <div className="max-w-7xl mx-auto px-4 pb-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pb-12">
         <GuaranteeCard />
       </div>
     </div>

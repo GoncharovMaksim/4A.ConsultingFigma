@@ -53,12 +53,12 @@ export default function PricingCard({
               <h3 className="text-2xl font-medium text-text-primary mb-2">
                 {plan.title}
               </h3>
-              <div className="flex items-end gap-4">
-                <div className="text-5xl font-semibold text-accent">
+              <div className="flex items-baseline gap-4">
+                <div className="text-5xl font-semibold text-accent whitespace-nowrap leading-none">
                   {plan.price}
                 </div>
                 <div className="relative">
-                  <span className="text-text-old-price text-xl line-through">
+                  <span className="text-text-old-price text-xl line-through whitespace-nowrap">
                     {plan.oldPrice}
                   </span>
                   <div className="absolute top-1/2 left-0 w-full h-0.5 bg-text-old-price transform -translate-y-1/2"></div>
