@@ -39,8 +39,8 @@ export default function MobilePricingCard({
         )}
 
         {/* Discount Badge (inside card) */}
-        <div className="absolute top-0 left-6 z-10">
-          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-sm px-2 py-1 rounded-b-sm">
+        <div className="absolute top-0 right-12 z-10">
+          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-sm px-2 py-1 rounded-br-sm">
             {plan.discount}
           </div>
         </div>

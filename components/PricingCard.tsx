@@ -42,7 +42,7 @@ export default function PricingCard({
 
         {/* Discount Badge (inside card to scale together) */}
         <div className="absolute top-0 left-8 md:left-12 lg:left-16 z-10">
-          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-lg px-2 py-1 rounded-b-md">
+          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-lg px-2 py-1 rounded-br-md">
             {plan.discount}
           </div>
         </div>
