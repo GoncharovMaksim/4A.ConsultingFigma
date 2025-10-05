@@ -272,7 +272,6 @@ export default function Home() {
               className={`btn-primary w-full lg:w-[352px] mb-6 text-lg py-4 transition-all duration-200 ${
                 blink ? "brightness-125" : "brightness-75"
               }`}
-              disabled={!isAgreed}
             >
               Купить
             </button>
