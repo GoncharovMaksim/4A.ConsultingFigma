@@ -68,14 +68,14 @@ export default function Home() {
       <OfferBanner />
 
       {/* Page title over both columns */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-6">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-text-primary text-center">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 pt-6">
+        <h1 className="text-2xl lg:text-5xl font-bold text-text-primary text-center">
           Выбери подходящий для себя <span className="text-accent">тариф</span>
         </h1>
       </div>
 
       {/* Картинка для мобильной версии */}
-      <div className="md:hidden max-w-7xl mx-auto px-6 pt-4">
+      <div className="lg:hidden max-w-7xl mx-auto px-6 pt-4">
         <div
           className="relative w-full overflow-hidden rounded-6xl"
           style={{ aspectRatio: "380/767" }}
@@ -92,9 +92,9 @@ export default function Home() {
       </div>
 
       {/* Layout: image left on desktop, top on mobile */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-6 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 pt-6 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
         {/* Image block только для десктопа */}
-        <div className="hidden md:block order-1 lg:order-none">
+        <div className="hidden lg:block order-1 lg:order-none">
           <div
             className="relative w-full overflow-hidden rounded-6xl"
             style={{ aspectRatio: "380/767" }}
@@ -113,10 +113,10 @@ export default function Home() {
         {/* Right column content */}
         <div>
           {/* Title moved above grid */}
-          <div className="mb-4 md:mb-6" />
+          <div className="mb-4" />
 
           {/* Pricing Cards - Desktop */}
-          <div className="hidden md:block mb-10">
+          <div className="hidden lg:block mb-10">
             {/* Featured card full width on desktop */}
             {featuredPlan && (
               <div className="mb-6">
@@ -141,7 +141,7 @@ export default function Home() {
           </div>
 
           {/* Pricing Cards - Mobile */}
-          <div className="md:hidden mb-8">
+          <div className="lg:hidden mb-8">
             <div className="space-y-4">
               {pricingPlans.map((plan) => (
                 <MobilePricingCard
@@ -157,18 +157,18 @@ export default function Home() {
           </div>
 
           {/* Attention Card */}
-          <div className="mb-8 md:mb-10">
+          <div className="mb-8 lg:mb-10">
             <AttentionCard />
           </div>
 
           {/* Guarantee Card moved below grid on desktop */}
 
           {/* Privacy Policy and Button */}
-          <div className="mb-8 md:mb-10">
-            <div className="flex items-start md:items-center gap-3 mb-6 md:mb-8">
+          <div className="mb-8 lg:mb-10">
+            <div className="flex items-start gap-3 mb-6 lg:mb-8">
               <button
                 onClick={() => setIsAgreed(!isAgreed)}
-                className={`w-7 h-7 md:w-8 md:h-8 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                className={`w-7 h-7 rounded border-2 flex items-center justify-center flex-shrink-0 ${
                   isAgreed
                     ? "bg-accent border-accent"
                     : "bg-bg-tertiary border-gray-500"
@@ -176,7 +176,7 @@ export default function Home() {
               >
                 {isAgreed && (
                   <svg
-                    className="w-4 h-4 md:w-5 md:h-5 text-bg-primary"
+                    className="w-4 h-4 text-bg-primary"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -188,14 +188,14 @@ export default function Home() {
                   </svg>
                 )}
               </button>
-              <span className="text-text-gray text-xs md:text-sm">
+              <span className="text-text-gray text-xs">
                 Я согласен с офертой рекуррентных платежей и Политикой
                 конфиденциальности
               </span>
             </div>
 
             <button
-              className="btn-primary w-full md:w-[352px] mb-6 md:mb-8 text-lg md:text-xl py-4 md:py-5"
+              className="btn-primary w-full lg:w-[352px] mb-6 text-lg py-4"
               disabled={!isAgreed}
             >
               Купить
@@ -214,7 +214,7 @@ export default function Home() {
       </div>
 
       {/* Full-width Guarantee under image/text grid */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pb-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 pb-12">
         <GuaranteeCard />
       </div>
     </div>
