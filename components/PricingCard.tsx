@@ -53,23 +53,22 @@ export default function PricingCard({
               <h3 className="text-2xl font-medium text-text-primary mb-2">
                 {plan.title}
               </h3>
-              <div className="flex items-baseline gap-4">
+              <div className="flex flex-col items-end gap-0.5 md:gap-1">
                 <div className="text-5xl font-semibold text-accent whitespace-nowrap leading-none">
                   {plan.price}
                 </div>
-                <div className="relative">
-                  <span className="text-text-old-price text-xl line-through whitespace-nowrap">
-                    {plan.oldPrice}
-                  </span>
-                  <div className="absolute top-1/2 left-0 w-full h-0.5 bg-text-old-price transform -translate-y-1/2"></div>
-                </div>
+                <span className="text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price">
+                  {plan.oldPrice}
+                </span>
               </div>
             </div>
 
             {/* Right: description */}
-            <p className="text-text-primary text-base leading-relaxed md:text-right md:max-w-xl">
-              {plan.description}
-            </p>
+            <div className="md:max-w-xl md:ml-4 text-left">
+              <p className="text-text-primary text-base leading-relaxed">
+                {plan.description}
+              </p>
+            </div>
           </div>
         ) : (
           <div className="flex h-full flex-col text-center">
@@ -78,15 +77,14 @@ export default function PricingCard({
               <h3 className="text-2xl font-medium text-text-primary mb-2">
                 {plan.title}
               </h3>
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-0.5">
                 <div className="text-5xl font-semibold text-accent">
                   {plan.price}
                 </div>
                 <div className="relative">
-                  <span className="text-text-old-price text-xl line-through">
+                  <span className="text-text-old-price text-xl line-through decoration-[1px] decoration-text-old-price">
                     {plan.oldPrice}
                   </span>
-                  <div className="absolute top-1/2 left-0 w-full h-0.5 bg-text-old-price transform -translate-y-1/2"></div>
                 </div>
               </div>
             </div>

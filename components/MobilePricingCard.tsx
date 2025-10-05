@@ -52,7 +52,7 @@ export default function MobilePricingCard({
                 <h3 className="text-lg font-medium text-text-primary mb-1">
                   {plan.title}
                 </h3>
-                <div className="flex flex-col items-end mb-2">
+                <div className="flex flex-col items-end mb-1">
                   <div className="text-3xl font-semibold text-accent">
                     {plan.price}
                   </div>
