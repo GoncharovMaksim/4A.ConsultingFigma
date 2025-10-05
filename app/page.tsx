@@ -74,10 +74,27 @@ export default function Home() {
         </h1>
       </div>
 
+      {/* Картинка для мобильной версии */}
+      <div className="md:hidden max-w-7xl mx-auto px-6 pt-4">
+        <div
+          className="relative w-full overflow-hidden rounded-6xl"
+          style={{ aspectRatio: "380/767" }}
+        >
+          <Image
+            src="/images/freepik-export-20240531103402atHS-7b8d36.png"
+            alt="Fitness"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-bg-primary" />
+        </div>
+      </div>
+
       {/* Layout: image left on desktop, top on mobile */}
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-20 pt-6 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
-        {/* Image block */}
-        <div className="order-1 lg:order-none">
+        {/* Image block только для десктопа */}
+        <div className="hidden md:block order-1 lg:order-none">
           <div
             className="relative w-full overflow-hidden rounded-6xl"
             style={{ aspectRatio: "380/767" }}
