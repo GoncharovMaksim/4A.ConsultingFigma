@@ -60,12 +60,15 @@ export default function Home() {
     },
   ];
 
+  const featuredPlan = pricingPlans.find((p) => p.isPopular);
+  const otherPlans = pricingPlans.filter((p) => !p.isPopular);
+
   return (
     <div className="min-h-screen bg-bg-primary">
       <OfferBanner />
 
       {/* Layout: image left on desktop, top on mobile */}
-      <div className="max-w-7xl mx-auto px-4 pt-8 pb-16 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
+      <div className="max-w-7xl mx-auto px-4 pt-8 pb-8 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
         {/* Image block */}
         <div className="order-1 lg:order-none">
           <div
@@ -94,8 +97,20 @@ export default function Home() {
 
           {/* Pricing Cards - Desktop */}
           <div className="hidden md:block mb-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {pricingPlans.map((plan) => (
+            {/* Featured card full width on desktop */}
+            {featuredPlan && (
+              <div className="mb-6">
+                <PricingCard
+                  plan={featuredPlan}
+                  isFeatured
+                  onClick={() => setSelectedPlan(featuredPlan.id)}
+                />
+              </div>
+            )}
+
+            {/* Other cards in 3 columns */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {otherPlans.map((plan) => (
                 <PricingCard
                   key={plan.id}
                   plan={plan}
@@ -126,10 +141,7 @@ export default function Home() {
             <AttentionCard />
           </div>
 
-          {/* Guarantee Card */}
-          <div className="mb-8 md:mb-10">
-            <GuaranteeCard />
-          </div>
+          {/* Guarantee Card moved below grid on desktop */}
 
           {/* Privacy Policy and Button */}
           <div className="mb-8 md:mb-10">
@@ -163,7 +175,7 @@ export default function Home() {
             </div>
 
             <button
-              className="btn-primary w-full mb-6 md:mb-8 text-lg md:text-xl py-4 md:py-5"
+              className="btn-primary w-full md:w-[352px] mb-6 md:mb-8 text-lg md:text-xl py-4 md:py-5"
               disabled={!isAgreed}
             >
               Купить
@@ -179,6 +191,11 @@ export default function Home() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Full-width Guarantee under image/text grid */}
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        <GuaranteeCard />
       </div>
     </div>
   );

@@ -29,9 +29,9 @@ export default function OfferBanner() {
 
   return (
     <div className="offer-banner mb-8">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-col items-center justify-center gap-2">
         <span>Успейте открыть пробную неделю</span>
-        <div className="flex items-center gap-2 ml-4">
+        <div className="flex items-center gap-2">
           <div className="w-3.5 h-3.5 bg-star-yellow rounded-sm"></div>
           <div className="flex items-center gap-1.5">
             <span className="text-star-yellow font-bold text-4xl">
