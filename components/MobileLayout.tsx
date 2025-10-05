@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import MobilePricingCard from "@/components/MobilePricingCard";
 import OfferBanner from "@/components/OfferBanner";
@@ -10,6 +10,34 @@ import AttentionCard from "@/components/AttentionCard";
 export default function MobileLayout() {
   const [selectedPlan, setSelectedPlan] = useState("forever");
   const [isAgreed, setIsAgreed] = useState(false);
+
+  // Timer for offer banner
+  const [timer, setTimer] = useState(120);
+  const [timerBlink, setTimerBlink] = useState(false);
+
+  useEffect(() => {
+    if (timer <= 0) return;
+    const interval = setInterval(() => {
+      setTimer((t) => t - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  useEffect(() => {
+    if (timer > 30) return;
+    const blinkInterval = setInterval(() => {
+      setTimerBlink((b) => !b);
+    }, 500);
+    return () => clearInterval(blinkInterval);
+  }, [timer]);
+
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60)
+      .toString()
+      .padStart(2, "0");
+    const sec = (s % 60).toString().padStart(2, "0");
+    return `${m}:${sec}`;
+  };
 
   const pricingPlans = [
     {
@@ -71,7 +99,11 @@ export default function MobileLayout() {
       {/* Main Content */}
       <div className="relative z-10 -mt-32">
         {/* Offer Banner */}
-        <OfferBanner />
+        <OfferBanner
+          timer={timer}
+          timerBlink={timerBlink}
+          formatTime={formatTime}
+        />
 
         {/* Title */}
         <div className="text-center mb-8 px-4">
