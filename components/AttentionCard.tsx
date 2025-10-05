@@ -3,7 +3,7 @@ export default function AttentionCard() {
     <div className="bg-bg-tertiary rounded-2xl p-5">
       <div className="flex items-start gap-2">
         {/* Alert Icon */}
-        <div className="bg-text-primary rounded p-1.5 flex-shrink-0">
+        <div className="flex-shrink-0">
           <div className="w-6 h-6 relative">
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-accent"></div>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-accent rounded-full"></div>

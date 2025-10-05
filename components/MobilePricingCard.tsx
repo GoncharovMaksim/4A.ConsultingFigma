@@ -22,29 +22,28 @@ export default function MobilePricingCard({
 }: MobilePricingCardProps) {
   return (
     <div className="relative">
-      {/* Popular Badge */}
-      {plan.isPopular && (
-        <div className="absolute -top-2 -right-2 z-10">
-          <span className="bg-accent text-bg-primary font-medium text-sm px-2 py-1 rounded">
-            хит!
-          </span>
-        </div>
-      )}
-
-      {/* Discount Badge */}
-      <div className="absolute top-0 left-0 z-10">
-        <div className="bg-sale-red text-text-primary font-gilroy font-medium text-sm px-2 py-1 rounded-b-sm">
-          {plan.discount}
-        </div>
-      </div>
-
       {/* Card */}
       <div
-        className={`card cursor-pointer transition-all duration-300 ${
+        className={`card relative cursor-pointer transition-all duration-300 ${
           plan.isSelected ? "card-selected" : ""
         }`}
         onClick={onClick}
       >
+        {/* Popular Badge (inside card) */}
+        {plan.isPopular && (
+          <div className="absolute -top-2 -right-2 z-10">
+            <span className="bg-accent text-bg-primary font-medium text-sm px-2 py-1 rounded">
+              хит!
+            </span>
+          </div>
+        )}
+
+        {/* Discount Badge (inside card) */}
+        <div className="absolute top-0 left-6 z-10">
+          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-sm px-2 py-1 rounded-b-sm">
+            {plan.discount}
+          </div>
+        </div>
         <div className="flex items-center justify-between">
           {/* Left side - Title and Price */}
           <div className="flex-1">

@@ -24,29 +24,28 @@ export default function PricingCard({
 }: PricingCardProps) {
   return (
     <div className="relative h-full">
-      {/* Popular Badge */}
-      {plan.isPopular && (
-        <div className="absolute -top-2 -right-2 z-10">
-          <span className="bg-accent text-bg-primary font-medium text-lg px-3 py-1 rounded-lg">
-            хит!
-          </span>
-        </div>
-      )}
-
-      {/* Discount Badge */}
-      <div className="absolute top-0 left-0 z-10">
-        <div className="bg-sale-red text-text-primary font-gilroy font-medium text-lg px-2 py-1 rounded-b-md">
-          {plan.discount}
-        </div>
-      </div>
-
       {/* Card */}
       <div
-        className={`card h-full cursor-pointer transition-all duration-300 hover:scale-105 ${
+        className={`card relative h-full cursor-pointer transition-all duration-300 hover:scale-105 ${
           plan.isSelected ? "card-selected" : ""
         }`}
         onClick={onClick}
       >
+        {/* Popular Badge (inside card to scale together) */}
+        {plan.isPopular && (
+          <div className="absolute -top-2 -right-2 z-10">
+            <span className="bg-accent text-bg-primary font-medium text-lg px-3 py-1 rounded-lg">
+              хит!
+            </span>
+          </div>
+        )}
+
+        {/* Discount Badge (inside card to scale together) */}
+        <div className="absolute top-0 left-8 md:left-12 lg:left-16 z-10">
+          <div className="bg-sale-red text-text-primary font-gilroy font-medium text-lg px-2 py-1 rounded-b-md">
+            {plan.discount}
+          </div>
+        </div>
         {isFeatured ? (
           <div className="flex h-full flex-col md:flex-row md:items-center md:justify-between gap-6">
             {/* Left: title/prices */}
