@@ -128,21 +128,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      {/* Sticky header timer */}
-      <div className="sticky top-0 z-50 w-full bg-bg-primary py-2 flex justify-center">
-        <div
-          className={`px-6 py-2 rounded-xl font-bold text-lg transition-all duration-200 ${
-            timer <= 30
-              ? timerBlink
-                ? "bg-red-600 text-white"
-                : "bg-red-400 text-white"
-              : "bg-accent text-bg-primary"
-          }`}
-        >
-          До конца скидки: {formatTime(timer)}
-        </div>
-      </div>
-      <OfferBanner />
+      {/* OfferBanner с таймером */}
+      <OfferBanner
+        timer={timer}
+        timerBlink={timerBlink}
+        formatTime={formatTime}
+      />
 
       {/* Page title over both columns */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 pt-6">
